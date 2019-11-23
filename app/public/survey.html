@@ -213,21 +213,29 @@
 </footer>
 
 <script type="text/JavaScript">
+
     var newScores = [];
 
     $("#submitBtn").on("click", function (event) {
         event.preventDefault();
+        // Push values
+
+        //Looping through all elements that share the '.question' class and pushing each value into a new array
+        $(".question").map(function() {
+            newScores.push(parseInt($(this).val()));
+        });
+
+
         var newFriend = {
-            name: $("#nameInput").val().trim(),
+            name: 4,
             photo: $("#photoInput").val().trim(),
-            scores: newScores.push($(".question").val())
+            scores: newScores
         }
 
-        console.log(newScores);
-
         var currentURL = window.location.origin;
-        console.log(currentURL);
-        $.post(currentURL + "/api/friends", newFriend)
+
+        console.log(newFriend);
+        $.post(currentURL + "/api/friends", {data: JSON.stringify(newFriend)})
             .then(function(data) {
                 console.log("survey.html", data);
             }); 
